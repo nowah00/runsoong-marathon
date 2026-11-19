@@ -242,6 +242,53 @@ thead th{background:var(--bark);color:var(--cream);white-space:nowrap}
 .cert-actions{display:flex;gap:10px;justify-content:center;margin-top:18px;flex-wrap:wrap}
 .dl-msg{text-align:center;font-size:.875rem;color:var(--muted);margin:10px 0 0;min-height:1.4em}
 
+/* ---------- 접수 오픈 팝업 ---------- */
+.modal-box.popup-box{max-width:420px;padding:0;overflow:hidden}
+.popup-box .pop-img{display:block;width:100%;height:170px;object-fit:cover}
+.popup-box .pop-body{padding:22px 24px 20px}
+.popup-box .pop-badge{display:inline-block;background:var(--amber);color:#fff;font-size:.75rem;font-weight:700;padding:2px 10px;border-radius:999px;margin-bottom:8px}
+.popup-box h2{font-size:1.4rem;font-weight:900;margin-bottom:6px}
+.popup-box p{margin:0 0 4px;font-size:.9375rem}
+.popup-box .pop-actions{display:flex;flex-direction:column;gap:8px;margin-top:16px}
+.popup-box .pop-foot{display:flex;justify-content:space-between;border-top:1px solid var(--line);font-size:.8125rem}
+.popup-box .pop-foot button{flex:1;background:none;border:0;padding:12px;font-family:var(--font-body);color:var(--muted);cursor:pointer}
+.popup-box .pop-foot button+button{border-left:1px solid var(--line)}
+
+/* ---------- 접속 대기열 ---------- */
+.queue{position:fixed;inset:0;background:var(--paper);z-index:60;display:flex;align-items:center;justify-content:center;padding:20px}
+.queue-box{width:100%;max-width:440px;background:var(--white);border:1px solid var(--line);border-radius:16px;padding:32px 28px;text-align:center;box-shadow:0 20px 50px rgba(83,52,22,.15)}
+.queue-box h2{font-size:1.3rem;font-weight:900;margin-bottom:4px}
+.queue-box .q-sub{margin:0 0 22px;color:var(--muted);font-size:.9375rem}
+.q-label{font-size:.875rem;color:var(--muted);font-weight:700}
+.q-count{font-family:var(--font-num);font-size:3.4rem;font-weight:700;color:var(--amber);line-height:1.1;font-variant-numeric:tabular-nums;margin:4px 0 14px}
+.q-count small{font-size:1.25rem;color:var(--bark);margin-left:4px}
+.q-bar{height:12px;background:var(--cream);border-radius:6px;overflow:hidden}
+.q-bar span{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--olive),var(--amber));transition:width .1s linear}
+.q-meta{display:flex;justify-content:space-between;font-size:.8125rem;color:var(--muted);margin-top:8px}
+.q-warn{margin:20px 0 0;font-size:.8125rem;color:var(--error)}
+.q-runner{width:72px;height:72px;margin:0 auto 10px;display:block;animation:qbob .5s ease-in-out infinite alternate}
+@keyframes qbob{from{transform:translateY(0)}to{transform:translateY(-6px)}}
+@media (prefers-reduced-motion:reduce){.q-runner{animation:none}.q-bar span{transition:none}}
+
+/* ---------- 접수 신청서 ---------- */
+.apply-wrap{max-width:640px}
+.apply-card{background:var(--white);border:1px solid var(--line);border-radius:14px;padding:24px 26px}
+.apply-card + .apply-card{margin-top:16px}
+.apply-card h3{font-size:1.0625rem;font-weight:900;margin-bottom:12px}
+.apply-sum{display:grid;grid-template-columns:90px 1fr;gap:6px 12px;margin:0;font-size:.9375rem}
+.apply-sum dt{color:var(--muted);font-weight:700}
+.apply-sum dd{margin:0}
+.agree{display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-top:1px solid var(--line);font-size:.9375rem;cursor:pointer}
+.agree:first-of-type{border-top:0}
+.agree input{width:18px;height:18px;margin-top:3px;accent-color:var(--olive)}
+.agree small{display:block;color:var(--muted)}
+.apply-submit{display:flex;justify-content:center;margin-top:20px}
+.apply-result{text-align:center;padding:36px 24px}
+.apply-result .big{font-family:var(--font-display);font-size:2rem;margin:6px 0 8px}
+.apply-result.ok .big{color:var(--olive)}
+.apply-result.fail .big{color:var(--error)}
+.apply-result p{margin:0 0 18px;color:var(--muted)}
+
 /* ---------- 로그인 모달 ---------- */
 .modal{position:fixed;inset:0;background:rgba(40,24,8,.55);display:flex;align-items:center;justify-content:center;padding:20px;z-index:50}
 .modal-box{background:var(--white);border-radius:14px;width:100%;max-width:380px;padding:26px 24px;box-shadow:0 20px 50px rgba(0,0,0,.3)}
@@ -392,7 +439,7 @@ footer .copy{opacity:.75;margin:0}
     <tr><th>도착</th><td>두물머리 연핫도그 (경기도 양평군 양서면)</td></tr>
     <tr><th>종목</th><td>핫도그 하프 코스 <span class="tag amber">단일 종목</span><br><small>거리 약 20km 안팎 추정, 대회 전 실측 후 확정</small></td></tr>
     <tr><th>참가비</th><td>0원 <small>(무료)</small></td></tr>
-    <tr><th>정원</th><td>2명 <small>(대회장 1명 + 엘리트 선수 1명)</small><span class="tag">접수 마감</span></td></tr>
+    <tr><th>정원</th><td>2명 <small>(대회장 1명 + 엘리트 선수 1명)</small><span class="tag" data-closed hidden>접수 마감</span><span class="tag amber" data-open hidden>접수 중</span></td></tr>
     <tr><th>제한시간</th><td>3시간 <small>(11:00 커트오프 · 연핫도그 주말 영업 개시 09:00)</small></td></tr>
     <tr><th>기록 계측</th><td>GPS 계측 (Garmin) · 계측요원 병주(竝走) 방식</td></tr>
     <tr><th>기념품</th><td>완주 시 연핫도그 1개 <small>(순한맛·매운맛 중 택1, 현장 지급)</small></td></tr>
@@ -408,13 +455,14 @@ footer .copy{opacity:.75;margin:0}
       <span class="kind">엘리트 선수 접수</span>
       <h3>핫도그 하프 코스</h3>
       <dl class="kv">
-        <dt>접수기간</dt><dd>접수 개시 직후 조기 마감</dd>
+        <dt>접수기간</dt><dd id="entry-period"></dd>
         <dt>접수대상</dt><dd>엘리트 선수 (단 1명)</dd>
-        <dt>접수현황</dt><dd><b>1 / 1명</b> · 엘리트 부문 정원 마감</dd>
+        <dt>접수현황</dt><dd id="entry-count"></dd>
       </dl>
-      <div class="meter" aria-hidden="true"><span></span></div>
-      <div class="my-entry" id="my-entry" data-member hidden></div>
-      <div data-guest><button class="btn" type="button" disabled>접수마감</button></div>
+      <div class="meter" aria-hidden="true"><span id="entry-meter"></span></div>
+      <div class="my-entry" id="my-entry" data-member data-closed hidden></div>
+      <div data-open hidden><button class="btn amber" type="button" data-action="apply">접수하기</button></div>
+      <div data-closed hidden><button class="btn" type="button" disabled>접수마감</button></div>
     </div>
   </article>
 
@@ -467,7 +515,9 @@ footer .copy{opacity:.75;margin:0}
 <section class="block" id="notice" data-view="notice"><div class="wrap">
   <div class="sec-head"><div class="no">NOTICE</div><h2>공지사항</h2></div>
   <ul class="notices">
-    <li><details open><summary><span class="n">6</span><span class="t">[결과] 엘리트 부문 접수 결과 안내</span><span class="d">2026.11.19</span></summary>
+    <li data-open hidden><details open><summary><span class="n">6</span><span class="t">[접수] 엘리트 부문 참가 접수 오픈 안내</span><span class="d">2026.11.19</span></summary>
+      <div class="body"><p>제1회 런숭 마라톤대회 엘리트 부문 참가 접수를 시작합니다. 모집 인원은 단 1명이며 선착순으로 마감됩니다.</p><p>접속자가 많을 경우 대기열을 거쳐 순차 입장합니다. 새로고침 시 대기 순서가 초기화되니 유의해 주십시오.</p><p><button class="btn amber sm" type="button" data-action="apply">접수하러 가기</button></p></div></details></li>
+    <li data-closed hidden><details open><summary><span class="n">6</span><span class="t">[결과] 엘리트 부문 접수 결과 안내</span><span class="d">2026.11.19</span></summary>
       <div class="body"><p>제1회 런숭 마라톤대회 엘리트 부문 접수가 개시 직후 조기 마감되었습니다.</p><p>치열한 접수 경쟁 끝에 <b>배번 0002 이예림</b> 선수가 단 1명의 엘리트 선수로 최종 선발되었습니다. 아쉽게 선발되지 못한 분들께 깊은 양해를 구합니다.</p></div></details></li>
     <li><details><summary><span class="n">5</span><span class="t">[필독] 안전 수칙 안내</span><span class="d">2026.11.19</span></summary>
       <div class="body"><p>코스 대부분이 자전거도로와 인접해 있습니다. 주말 오전에는 자전거 통행이 많으므로 반드시 보행로로 주행해 주시기 바랍니다.</p><p>이어폰 착용 시 한쪽은 빼 주십시오.</p></div></details></li>
@@ -489,6 +539,37 @@ footer .copy{opacity:.75;margin:0}
     <tbody id="results-body"></tbody>
   </table></div>
   <p class="note">기록은 Garmin GPS 측정값 기준이며, 계측요원(배번 0001)이 직접 집계합니다.</p>
+</div></section>
+
+<section class="block" id="apply" data-view="apply"><div class="wrap apply-wrap">
+  <div class="sec-head"><div class="no">APPLY</div><h2>참가 신청</h2><p>엘리트 부문 · 핫도그 하프 코스</p></div>
+
+  <form id="apply-form" novalidate>
+    <div class="apply-card">
+      <h3>신청 종목</h3>
+      <dl class="apply-sum">
+        <dt>대회</dt><dd>제1회 런숭 마라톤대회</dd>
+        <dt>일시</dt><dd>2026.11.29.(일) 08:00 · 삼패야구장 출발</dd>
+        <dt>부문</dt><dd>엘리트부 · 핫도그 하프 <span class="tag amber">잔여 1석</span></dd>
+        <dt>참가비</dt><dd>0원</dd>
+      </dl>
+    </div>
+    <div class="apply-card">
+      <h3>참가자 정보</h3>
+      <div class="field"><label for="ap-name">이름</label><input id="ap-name" type="text" autocomplete="name" placeholder="홍길동"></div>
+      <div class="field"><label for="ap-pw">참가자 비밀번호</label><input id="ap-pw" type="password" inputmode="numeric" maxlength="4" placeholder="조직위원회에서 안내받은 숫자 4자리"></div>
+    </div>
+    <div class="apply-card">
+      <h3>약관 동의</h3>
+      <label class="agree"><input type="checkbox" id="ag-1"><span>참가자 유의사항 확인 (필수)<small>무리한 완주보다 안전한 기권을 존중합니다.</small></span></label>
+      <label class="agree"><input type="checkbox" id="ag-2"><span>기념품(연핫도그) 현장 수령 동의 (필수)<small>대기 줄이 있을 경우 선수도 줄을 서야 합니다.</small></span></label>
+      <label class="agree"><input type="checkbox" id="ag-3"><span>개인정보 수집·이용 동의 (필수)<small>수집 항목: 이름. 대회 종료 후에도 추억으로 보관됩니다.</small></span></label>
+    </div>
+    <p class="modal-err" id="apply-err" role="alert"></p>
+    <div class="apply-submit"><button class="btn amber" type="submit">신청하기</button></div>
+  </form>
+
+  <div class="apply-card apply-result" id="apply-result" hidden></div>
 </div></section>
 
 <section class="block" id="cert" data-view="cert"><div class="wrap">
@@ -525,6 +606,38 @@ footer .copy{opacity:.75;margin:0}
 </div></section>
 
 </main>
+
+<!-- ===== 접수 오픈 팝업 (홈) ===== -->
+<div class="modal" id="apply-popup" hidden role="dialog" aria-modal="true" aria-labelledby="pop-title">
+  <div class="modal-box popup-box">
+    <img class="pop-img" src="img/hero.jpg" alt="" width="1325" height="691">
+    <div class="pop-body">
+      <span class="pop-badge">접수 오픈</span>
+      <h2 id="pop-title">엘리트 부문 참가 접수</h2>
+      <p>제1회 런숭 마라톤대회 엘리트 선수를 모집합니다.</p>
+      <p><b>모집 인원 단 1명 · 선착순 마감</b></p>
+      <div class="pop-actions"><button class="btn amber" type="button" data-action="apply">지금 접수하기</button></div>
+    </div>
+    <div class="pop-foot">
+      <button type="button" data-action="popup-today">오늘 하루 보지 않기</button>
+      <button type="button" data-action="popup-close">닫기</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 접속 대기열 ===== -->
+<div class="queue" id="queue" hidden role="dialog" aria-modal="true" aria-labelledby="q-title">
+  <div class="queue-box">
+    <img class="q-runner" src="img/logo-small.png" alt="" width="72" height="72">
+    <h2 id="q-title">접속 대기 중입니다</h2>
+    <p class="q-sub">접속자가 많아 순차적으로 입장하고 있습니다.</p>
+    <div class="q-label">내 앞 대기 인원</div>
+    <div class="q-count" aria-live="polite"><span id="q-num">1,000,000</span><small>명</small></div>
+    <div class="q-bar"><span id="q-bar"></span></div>
+    <div class="q-meta"><span id="q-eta">예상 대기 시간 10초</span><span>1초당 약 100,000명 입장</span></div>
+    <p class="q-warn">새로고침하거나 창을 닫으면 대기 순서가 초기화됩니다.</p>
+  </div>
+</div>
 
 <!-- 인쇄용 배번 렌더링 영역 (화면 밖) -->
 <div id="print-bib" aria-hidden="true"></div>
@@ -652,7 +765,7 @@ function renderMember(){
   if(state.downloads) $("dl-msg").textContent = "";
 }
 
-function renderAll(){ renderResults(); renderMember(); }
+function renderAll(){ renderResults(); renderMember(); renderEntryState(); }
 
 /* ---------- 카운트다운 ---------- */
 function tick(){
@@ -703,6 +816,9 @@ document.addEventListener("click",function(e){
     if(a==="login") openLogin();
     else if(a==="logout") logout();
     else if(a==="close-login") closeLogin();
+    else if(a==="apply") startQueue();
+    else if(a==="popup-close") $("apply-popup").hidden=true;
+    else if(a==="popup-today"){ lsSet(POPUP_KEY,todayStr()); $("apply-popup").hidden=true; }
     return;
   }
   if(e.target.id==="login-modal") closeLogin();
@@ -767,10 +883,92 @@ $("bib-toggle").addEventListener("click",function(){
 });
 function resetBibPreview(){ $("bib-panel").hidden=true; $("bib-toggle").setAttribute("aria-expanded","false"); $("bib-toggle").textContent="배번 미리보기"; }
 
+/* ---------- 참가 접수 (팝업 → 대기열 → 신청서) ----------
+   서버가 없으므로 접수 완료 여부는 이 브라우저에만 저장됩니다.
+   테스트 후 초기화: 주소 끝에 #reset-entry 를 붙여 접속 */
+var ENTRY_KEY="rs_applied", POPUP_KEY="rs_popup_hide", queuePassed=false;
+function lsGet(k){ try{ return localStorage.getItem(k); }catch(e){ return null; } }
+function lsSet(k,v){ try{ v==null?localStorage.removeItem(k):localStorage.setItem(k,v); }catch(e){} }
+function entryClosed(){ return !!lsGet(ENTRY_KEY); }
+function todayStr(){ var d=new Date(); return d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate(); }
+
+function renderEntryState(){
+  var closed=entryClosed();
+  document.querySelectorAll("[data-open]").forEach(function(el){ el.hidden=closed; });
+  document.querySelectorAll("[data-closed]").forEach(function(el){
+    el.hidden = !closed || (el.hasAttribute("data-member") && !state.me);
+  });
+  $("entry-period").textContent = closed?"접수 개시 직후 조기 마감":"접수 중 (정원 도달 시 즉시 마감)";
+  $("entry-count").innerHTML = closed?"<b>1 / 1명</b> · 엘리트 부문 정원 마감":"<b>0 / 1명</b> · 잔여 1석";
+  $("entry-meter").style.width = closed?"100%":"0%";
+  if(Date.now()<RACE_START) $("race-status").textContent = closed?"참가 접수 마감 · 대회 준비 중":"엘리트 부문 참가 접수 중";
+}
+
+function maybeShowPopup(v){
+  var show = v==="home" && !entryClosed() && lsGet(POPUP_KEY)!==todayStr() && $("queue").hidden;
+  $("apply-popup").hidden = !show;
+}
+
+function startQueue(){
+  if(entryClosed()){ go("entry"); return; }
+  $("apply-popup").hidden=true;
+  var TOTAL=1000000, PER_SEC=100000, start=Date.now();
+  $("queue").hidden=false;
+  (function step(){
+    var t=(Date.now()-start)/1000, left=Math.max(0,TOTAL-Math.floor(t*PER_SEC/1000)*1000);
+    $("q-num").textContent=left.toLocaleString("ko-KR");
+    $("q-bar").style.width=((TOTAL-left)/TOTAL*100)+"%";
+    $("q-eta").textContent="예상 대기 시간 "+Math.ceil(left/PER_SEC)+"초";
+    if(left>0){ setTimeout(step,100); return; }
+    $("q-title").textContent="입장합니다";
+    setTimeout(function(){
+      $("queue").hidden=true; queuePassed=true;
+      $("apply-form").hidden=false; $("apply-result").hidden=true; $("apply-form").reset(); $("apply-err").textContent="";
+      $("q-title").textContent="접속 대기 중입니다";
+      go("apply");
+    },600);
+  })();
+}
+
+function showApplyResult(ok,html){
+  $("apply-form").hidden=true;
+  var r=$("apply-result"); r.className="apply-card apply-result "+(ok?"ok":"fail"); r.innerHTML=html; r.hidden=false;
+  window.scrollTo(0,0);
+}
+
+$("apply-form").addEventListener("submit",function(e){
+  e.preventDefault();
+  var err=$("apply-err"), name=$("ap-name").value.replace(/\s+/g,""), pw=$("ap-pw").value.trim();
+  if(!name||!pw){ err.textContent="이름과 참가자 비밀번호를 입력해 주세요."; return; }
+  if(!($("ag-1").checked&&$("ag-2").checked&&$("ag-3").checked)){ err.textContent="필수 약관에 모두 동의해 주세요."; return; }
+  if(entryClosed()){ showApplyResult(false,'<div class="big">접수 마감</div><p>엘리트 부문 정원(1명)이 모두 찼습니다.</p><a class="btn plain" href="#entry">접수 안내로</a>'); return; }
+  if(!(window.crypto&&crypto.subtle)){ err.textContent="이 브라우저에서는 신청을 지원하지 않습니다."; return; }
+  sha256hex(name+":"+pw).then(function(k){
+    var r=findByKey(k);
+    if(!r){ err.textContent="참가자 정보가 확인되지 않습니다. 이름과 비밀번호를 다시 확인해 주세요."; return; }
+    if(!r.elite){ err.textContent="대회장은 엘리트 부문 접수 대상이 아닙니다. 선수의 접수를 기다려 주세요."; return; }
+    lsSet(ENTRY_KEY,r.bib);
+    state.me=r; sessionSet(r.key); renderAll();
+    showApplyResult(true,'<div class="no">ENTRY CONFIRMED</div><div class="big">접수 완료!</div>'+
+      '<p>'+esc(r.name)+' 선수님, 1,000,000 : 1의 경쟁을 뚫고 엘리트 부문 단 1석에 선발되었습니다.<br>배번 <b>'+r.bib+'</b>이 배정되었습니다.</p>'+
+      '<a class="btn amber" href="#mypage">마이페이지에서 배번 확인</a>');
+  });
+});
+
+/* 테스트용 초기화: #reset-entry */
+function checkReset(){
+  if(location.hash==="#reset-entry"){ lsSet(ENTRY_KEY,null); lsSet(POPUP_KEY,null); renderAll(); location.hash="home"; return true; }
+  return false;
+}
+
 /* ---------- 페이지 전환 (헤더 메뉴 → 각 페이지) ---------- */
-var VIEWS = ["home","mypage","guide","entry","course","notice","results","cert"];
-var TITLES = {home:"",mypage:"마이페이지",guide:"대회요강",entry:"참가접수",course:"코스안내",notice:"공지사항",results:"기록조회",cert:"완주증"};
-function currentView(){ var v=location.hash.slice(1); return VIEWS.indexOf(v)<0?"home":v; }
+var VIEWS = ["home","mypage","guide","entry","apply","course","notice","results","cert"];
+var TITLES = {home:"",apply:"참가 신청",mypage:"마이페이지",guide:"대회요강",entry:"참가접수",course:"코스안내",notice:"공지사항",results:"기록조회",cert:"완주증"};
+function currentView(){
+  var v=location.hash.slice(1);
+  if(v==="apply" && !queuePassed) v="entry";   /* 대기열을 거치지 않은 직접 접근은 접수 안내로 */
+  return VIEWS.indexOf(v)<0?"home":v;
+}
 function route(){
   var v=currentView();
   document.querySelectorAll("[data-view]").forEach(function(el){ el.hidden = el.dataset.view!==v; });
@@ -779,14 +977,15 @@ function route(){
   });
   document.title = (TITLES[v]?TITLES[v]+" | ":"")+"제1회 런숭 마라톤대회";
   window.scrollTo(0,0);
+  maybeShowPopup(v);
 }
 function go(v){ if(currentView()===v && location.hash) route(); else location.hash=v; }
-window.addEventListener("hashchange",route);
+window.addEventListener("hashchange",function(){ if(!checkReset()) route(); });
 
 
 /* ---------- 시작 ---------- */
 state.me = findByKey(sessionGet());
-renderAll(); route(); tick(); setInterval(tick,1000);
+checkReset(); renderAll(); route(); tick(); setInterval(tick,1000);
 /* Claude 안에서는 downloads 기능을, 일반 브라우저(GitHub Pages 등)에서는 직접 다운로드를 사용 */
 var nativeDownloads = { save:function(req){
   var blob = req.data instanceof Blob ? req.data : new Blob([req.data]);
@@ -796,9 +995,9 @@ var nativeDownloads = { save:function(req){
   return Promise.resolve({status:"saved"});
 }};
 if(window.claude&&window.claude.use){
-  window.claude.use("downloads").then(function(d){ state.downloads=d; renderMember(); },function(){});
+  window.claude.use("downloads").then(function(d){ state.downloads=d; renderAll(); },function(){});
 } else {
-  state.downloads = nativeDownloads; renderMember();
+  state.downloads = nativeDownloads; renderAll();
 }
 </script>
 </body>
