@@ -886,10 +886,12 @@ function resetBibPreview(){ $("bib-panel").hidden=true; $("bib-toggle").setAttri
 /* ---------- 참가 접수 (팝업 → 대기열 → 신청서) ----------
    서버가 없으므로 접수 완료 여부는 이 브라우저에만 저장됩니다.
    테스트 후 초기화: 주소 끝에 #reset-entry 를 붙여 접속 */
+/* 조직위원회 공식 마감 스위치: true로 바꾸면 모든 기기에서 접수 마감 상태로 보입니다 */
+var ENTRY_CLOSED = false;
 var ENTRY_KEY="rs_applied", POPUP_KEY="rs_popup_hide", queuePassed=false;
 function lsGet(k){ try{ return localStorage.getItem(k); }catch(e){ return null; } }
 function lsSet(k,v){ try{ v==null?localStorage.removeItem(k):localStorage.setItem(k,v); }catch(e){} }
-function entryClosed(){ return !!lsGet(ENTRY_KEY); }
+function entryClosed(){ return ENTRY_CLOSED || !!lsGet(ENTRY_KEY); }
 function todayStr(){ var d=new Date(); return d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate(); }
 
 function renderEntryState(){
