@@ -1,1 +1,7 @@
-# runsoong-marathon
+# 제1회 런숭 마라톤대회
+
+2026.11.29(일) 08:00 삼패야구장 출발 · 두물머리 연핫도그 도착.
+참가자 2인을 위한 비공식 친선 대회 사이트입니다.
+
+- 사이트: https://nowah00.github.io/runsoong-marathon/
+- 대회 후 기록 반영: `index.html`의 `RUNNERS` 배열에서 각 선수의 `time`("H:MM:SS")과 `km`만 채우면 기록조회·마이페이지·완주증이 함께 갱신됩니다.

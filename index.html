@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>제1회 런숭 마라톤대회</title>
+<link rel="icon" type="image/png" href="img/favicon.png">
+<meta name="description" content="2026.11.29(일) 08:00 삼패야구장 출발 · 두물머리 연핫도그 도착. 런숭 마라톤 조직위원회 공식 사이트">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="RUNSOONG MARATHON">
+<meta property="og:title" content="제1회 런숭 마라톤대회">
+<meta property="og:description" content="2026.11.29(일) 08:00 삼패야구장 출발 · 두물머리 연핫도그 도착">
+<meta property="og:url" content="https://nowah00.github.io/runsoong-marathon/">
+<meta property="og:image" content="https://nowah00.github.io/runsoong-marathon/img/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@400;500;700;900&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* 가을 강변 톤 · 공식 접수 사이트 구조 패러디
+     공개 영역(누구나) + 회원 영역(로그인한 선수 본인) 두 층으로 구성 */
+  --amber:#ce7f20;
+  --cream:#eedfc7;
+  --olive:#607938;
+  --bark:#533416;
+  --paper:#f8f1e4;
+  --white:#fffdf8;
+  --line:#dcc9a8;
+  --muted:#7a6248;
+  --error:#b3261e;
+  --font-display:"Black Han Sans","Noto Sans KR",sans-serif;
+  --font-body:"Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --font-num:"Oswald","Noto Sans KR",sans-serif;
+  color-scheme:light;
+}
+
+/* ---------- 기본 ---------- */
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{scroll-behavior:auto}
+html,body{margin:0}
+body{background:var(--paper);color:var(--bark);font-family:var(--font-body);line-height:1.65;font-size:1rem}
+a{color:var(--olive)}
+h1,h2,h3,h4{text-wrap:balance;margin:0}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}
+a:focus-visible,button:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid var(--amber);outline-offset:2px}
+
+/* ---------- 버튼 · 태그 ---------- */
+.btn{display:inline-block;padding:12px 22px;font-weight:700;border-radius:999px;text-decoration:none;font-size:.9375rem;border:2px solid transparent;font-family:var(--font-body);cursor:pointer;line-height:1.3}
+.btn.sm{padding:9px 18px;font-size:.875rem}
+.btn.amber{background:var(--amber);color:#fff}
+.btn.olive{background:var(--olive);color:#fff}
+.btn.line{border-color:var(--cream);color:var(--cream);background:transparent}
+.btn.plain{background:transparent;border-color:var(--line);color:var(--bark)}
+.btn[disabled]{background:#cbb99b;color:var(--bark);cursor:not-allowed;opacity:.85}
+.tag{display:inline-block;font-size:.75rem;font-weight:700;padding:1px 9px;border-radius:999px;background:var(--olive);color:#fff;vertical-align:middle;line-height:1.6}
+.tag.amber{background:var(--amber)}
+
+/* ---------- 상단 유틸 바 ---------- */
+.util{background:var(--bark);color:var(--cream);font-size:.8125rem}
+.util .wrap{display:flex;justify-content:space-between;align-items:center;gap:12px;padding-top:7px;padding-bottom:7px;flex-wrap:wrap}
+.util-r{display:flex;align-items:center;gap:12px}
+.util button{font-family:var(--font-body);font-size:.8125rem;background:transparent;color:var(--cream);border:1px solid rgba(238,223,199,.45);border-radius:3px;padding:2px 10px;cursor:pointer}
+.who-msg{font-weight:700}
+.who-msg b{color:var(--amber)}
+
+/* ---------- 메인 내비 ---------- */
+nav.main{background:var(--white);border-bottom:3px solid var(--amber);position:sticky;top:0;z-index:5}
+nav.main .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-top:12px;padding-bottom:12px}
+.logo{text-decoration:none;color:var(--bark);display:flex;align-items:center;gap:10px}
+.logo img{width:48px;height:48px;display:block}
+.logo .lt{display:flex;flex-direction:column;gap:3px}
+.logo small{display:block;font-family:var(--font-num);font-size:.6875rem;letter-spacing:.14em;color:var(--amber);font-weight:700;line-height:1.2}
+.logo .lt-name{display:block;font-family:var(--font-num);font-weight:700;letter-spacing:.04em;font-size:1.375rem;line-height:1.2;white-space:nowrap}
+nav.main ul{list-style:none;margin:0;padding:0;display:flex;gap:20px;font-size:.9375rem;font-weight:700}
+nav.main ul a{position:relative;display:inline-block;padding:4px 2px;text-decoration:none;color:var(--bark);white-space:nowrap;transition:color .2s ease,transform .2s ease}
+nav.main ul a::after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:3px;border-radius:2px;background:var(--amber);transform:scaleX(0);transform-origin:center;transition:transform .25s ease}
+nav.main ul a:hover,nav.main ul a:focus-visible{color:var(--amber);transform:translateY(-1px)}
+nav.main ul a:hover::after,nav.main ul a:focus-visible::after,nav.main ul a[aria-current="page"]::after{transform:scaleX(1)}
+.logo img{transition:transform .3s ease}
+.logo:hover img{transform:rotate(-8deg) scale(1.06)}
+@media (prefers-reduced-motion:reduce){nav.main ul a,nav.main ul a::after,.logo img{transition:none}}
+nav.main ul a.mine{color:var(--olive)}
+nav.main ul a[aria-current="page"]{color:var(--amber)}
+
+/* ---------- 페이지 전환 ---------- */
+main{min-height:60vh}
+.view-locked{padding:72px 0}
+.hero.home{min-height:calc(100vh - 115px);display:flex;align-items:center}
+.hero.home .wrap{width:100%}
+
+/* ---------- 히어로 ---------- */
+.hero{background:linear-gradient(90deg,rgba(83,52,22,.62) 0%,rgba(83,52,22,.38) 55%,rgba(83,52,22,.08) 100%),url("img/hero.jpg") center/cover no-repeat,var(--bark);color:var(--cream)}
+.hero .wrap{padding-top:56px;padding-bottom:56px;display:grid;grid-template-columns:1.4fr 1fr;gap:40px;align-items:center}
+.hero-copy{text-shadow:0 1px 3px rgba(40,24,8,.55)}
+.eyebrow{font-family:var(--font-num);letter-spacing:.2em;font-weight:700;font-size:.875rem}
+.hero h1{font-family:var(--font-display);font-weight:400;font-size:clamp(2.4rem,6vw,4rem);line-height:1.1;margin-top:10px;color:#fff}
+.hero h1 em{font-style:normal;color:var(--amber)}
+.hero .when{margin:18px 0 0;font-size:1.125rem;font-weight:700;color:#fff}
+.hero .where{margin:2px 0 0;opacity:.92}
+.cta{display:flex;gap:10px;margin-top:24px;flex-wrap:wrap;text-shadow:none}
+.countdown{background:var(--cream);color:var(--bark);border-radius:14px;padding:22px}
+.countdown .label{font-size:.8125rem;color:var(--muted);font-weight:700}
+.countdown .dday{font-family:var(--font-num);font-size:4rem;font-weight:700;line-height:1;color:var(--amber);margin:6px 0 12px}
+.cd-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;text-align:center}
+.cd-grid div{background:var(--white);padding:8px 0;border-radius:8px}
+.cd-grid strong{display:block;font-family:var(--font-num);font-size:1.6rem;font-variant-numeric:tabular-nums}
+.cd-grid span{font-size:.75rem;color:var(--muted)}
+.countdown .status{margin-top:12px;font-size:.875rem;font-weight:700;color:var(--olive)}
+
+/* ---------- 마이페이지 (회원 전용) ---------- */
+.mypage{background:var(--cream);border-bottom:1px solid var(--line);padding:44px 0}
+.my-stack{display:flex;flex-direction:column;gap:20px;max-width:760px}
+.my-info{background:var(--white);border:1px solid var(--line);border-radius:14px;padding:22px 24px}
+.my-info h2{font-family:var(--font-display);font-weight:400;font-size:1.75rem}
+.my-info .greet{color:var(--olive);font-weight:700;margin:4px 0 14px}
+.kv{display:grid;grid-template-columns:100px 1fr;gap:8px 12px;margin:0 0 16px;font-size:.9375rem}
+.kv dt{color:var(--muted);font-weight:700}
+.kv dd{margin:0}
+.my-tip{background:var(--paper);border-left:4px solid var(--amber);padding:10px 14px;font-size:.9375rem;margin-bottom:16px;border-radius:0 8px 8px 0}
+.my-actions{display:flex;gap:8px;flex-wrap:wrap}
+.my-bibbox{background:var(--white);border:1px solid var(--line);border-radius:14px;padding:18px 24px}
+.bibbox-head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.bibbox-head b{display:block;font-size:1.0625rem}
+.bibbox-head span{font-size:.875rem;color:var(--muted)}
+#bib-panel{margin-top:18px;padding-top:18px;border-top:1px solid var(--line)}
+#my-bib{max-width:360px;margin:0 auto}
+.my-actions.center{justify-content:center;margin-top:16px}
+.dl-msg:empty{display:none}
+/* 인쇄용 배번: 화면 밖에서 크게 렌더링 후 PDF/JPG로 변환 */
+#print-bib{position:fixed;left:-10000px;top:0}
+.bibcard.print{width:960px;border-width:4px;border-radius:16px}
+.bibcard.print .pins{padding:18px 22px 0}
+.bibcard.print .pins i{width:22px;height:22px;border-width:3px}
+.bibcard.print .top{font-size:1.25rem;padding:6px 32px}
+.bibcard.print .num{font-size:15rem;padding:10px 0 0}
+.bibcard.print .name{font-size:2.6rem}
+.bibcard.print .role{font-size:1.2rem;margin-bottom:26px}
+.bibcard.print .strip{font-size:1.3rem;padding:14px 32px}
+.bibcard.print .bib-logo{position:absolute;left:36px;top:150px;width:90px;height:90px}
+
+/* ---------- 섹션 공통 ---------- */
+section.block{padding:64px 0}
+section.alt{background:var(--white)}
+.sec-head{margin-bottom:26px}
+.sec-head .no,.my-info .no{font-family:var(--font-num);color:var(--amber);font-weight:700;letter-spacing:.15em;font-size:.875rem}
+.sec-head h2{font-family:var(--font-display);font-weight:400;font-size:2rem;margin-top:2px}
+.sec-head p{margin:6px 0 0;color:var(--muted);font-size:.9375rem}
+.sub-h{font-size:1.25rem;font-weight:900;margin:40px 0 14px;display:flex;align-items:center;gap:8px}
+.sub-h::before{content:"";width:6px;height:20px;background:var(--amber);border-radius:2px}
+.notice-box{background:var(--cream);border-left:5px solid var(--amber);padding:14px 18px;margin-bottom:22px;border-radius:0 8px 8px 0}
+.note{font-size:.875rem;color:var(--muted);margin-top:10px}
+
+/* ---------- 표 ---------- */
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:.9375rem;background:var(--white)}
+th,td{border:1px solid var(--line);padding:12px 14px;text-align:left;vertical-align:top}
+thead th{background:var(--bark);color:var(--cream);white-space:nowrap}
+.spec th{width:160px;background:var(--cream);white-space:nowrap}
+.spec td small{color:var(--muted)}
+.spec .tag{margin-left:6px}
+
+/* ---------- 참가접수 ---------- */
+.product{display:grid;grid-template-columns:260px 1fr;background:var(--white);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.product img{width:100%;height:100%;object-fit:cover;display:block;min-height:220px}
+.product .info{padding:24px 26px;display:flex;flex-direction:column;gap:12px}
+.product .kind{font-size:.875rem;color:var(--muted)}
+.product h3{font-size:1.4rem;font-weight:900}
+.product .kv{grid-template-columns:90px 1fr;gap:6px 12px;margin:0}
+.meter{height:10px;background:var(--cream);border-radius:6px;overflow:hidden}
+.meter span{display:block;height:100%;width:100%;background:var(--amber)}
+.my-entry{background:var(--cream);border-radius:10px;padding:10px 14px;font-size:.9375rem;font-weight:700;color:var(--olive)}
+.caution{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.caution article{background:var(--white);border:1px solid var(--line);border-radius:12px;padding:18px 20px}
+.caution h4{margin-bottom:8px;font-size:1rem;color:var(--olive)}
+.caution p{margin:0;font-size:.9375rem}
+.insure{margin:0;padding-left:20px;font-size:.9375rem}
+.insure li{margin-bottom:6px}
+
+/* ---------- 코스 ---------- */
+.photo{margin:0;background:var(--white);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.photo img{display:block;width:100%;height:auto}
+.photo figcaption{padding:10px 14px;font-size:.875rem;color:var(--muted)}
+.map-grid{display:grid;grid-template-columns:1.5fr 1fr;gap:22px;align-items:start}
+.legs{list-style:none;margin:0;padding:0;background:var(--white);border:1px solid var(--line);border-radius:12px}
+.legs li{display:grid;grid-template-columns:34px 1fr;gap:10px;padding:11px 14px;border-bottom:1px solid var(--line);font-size:.9375rem;align-items:center}
+.legs li:last-child{border-bottom:0}
+.legs .dot{width:26px;height:26px;border-radius:50%;background:var(--olive);color:#fff;font-family:var(--font-num);font-size:.8125rem;display:flex;align-items:center;justify-content:center}
+.legs .end .dot{background:var(--amber)}
+.legs small{color:var(--muted);display:block}
+.course-meta{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:18px}
+.course-meta div{background:var(--white);border:1px solid var(--line);padding:14px 16px;border-radius:12px}
+.course-meta b{display:block;font-size:.8125rem;color:var(--muted)}
+.finish-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+
+/* ---------- 배번 카드 ---------- */
+.bibcard{background:var(--white);border:2px solid var(--bark);border-radius:10px;overflow:hidden;position:relative}
+.bibcard .pins{display:flex;justify-content:space-between;padding:10px 14px 0}
+.bibcard .pins i{width:12px;height:12px;border-radius:50%;border:2px solid var(--line);display:block}
+.bibcard .top{display:flex;justify-content:space-between;font-size:.75rem;font-weight:700;padding:4px 18px;color:var(--muted)}
+.bibcard .cls{padding:0 8px;border-radius:999px;letter-spacing:.08em}
+.bibcard .cls.elite{background:var(--olive);color:#fff}
+.bibcard .num{font-family:var(--font-num);font-weight:700;font-size:6rem;line-height:1;text-align:center;padding:6px 0;font-variant-numeric:tabular-nums}
+.bibcard .name{text-align:center;font-weight:900;font-size:1.4rem}
+.bibcard .role{text-align:center;color:var(--muted);font-size:.875rem;margin:0 12px 14px}
+.bibcard .strip{background:var(--amber);color:#fff;display:flex;justify-content:space-between;padding:8px 18px;font-size:.8125rem;font-weight:700}
+.bibcard.olive .strip{background:var(--olive)}
+
+/* ---------- 공지 ---------- */
+.notices{list-style:none;margin:0;padding:0;border-top:2px solid var(--bark);background:var(--white)}
+.notices li{border-bottom:1px solid var(--line)}
+.notices summary{list-style:none;display:grid;grid-template-columns:70px 1fr 110px;gap:12px;padding:14px 6px;cursor:pointer;align-items:center}
+.notices summary::-webkit-details-marker{display:none}
+.notices .n{font-family:var(--font-num);color:var(--muted);text-align:center}
+.notices .t{font-weight:700}
+.notices .d{color:var(--muted);font-size:.875rem;text-align:right;font-variant-numeric:tabular-nums}
+.notices .body{padding:4px 18px 18px 88px;font-size:.9375rem}
+.notices .body p{margin:0 0 6px}
+
+/* ---------- 기록 ---------- */
+.results td{white-space:nowrap}
+.results td.time{font-family:var(--font-num);font-size:1.125rem;font-variant-numeric:tabular-nums}
+.results tr.is-me td{background:#fbf0dc;font-weight:700}
+.pending{color:var(--muted)}
+
+/* ---------- 완주증 ---------- */
+.locked{max-width:620px;margin:0 auto;border:2px dashed var(--line);border-radius:14px;padding:44px 20px;text-align:center;background:var(--white)}
+.locked p{margin:0 0 16px;color:var(--muted)}
+.cert{background:var(--white);border:10px double var(--olive);max-width:620px;margin:0 auto;padding:40px 36px;text-align:center;position:relative}
+.cert .cert-logo{width:96px;height:96px;display:block;margin:0 auto 6px}
+.cert .kicker{font-size:.8125rem;letter-spacing:.3em;color:var(--muted)}
+.cert h3{font-family:var(--font-display);font-weight:400;font-size:2.75rem;margin:8px 0 18px}
+.cert .who{font-size:1.6rem;font-weight:900;border-bottom:2px solid var(--bark);display:inline-block;padding:0 24px 4px}
+.cert .bibno{font-family:var(--font-num);color:var(--amber);font-size:1.125rem;margin-top:6px}
+.cert .text{margin:20px auto;max-width:440px;font-size:.9375rem}
+.cert .rec{font-family:var(--font-num);font-size:2.75rem;font-weight:700;font-variant-numeric:tabular-nums}
+.cert .foot{margin-top:22px;font-size:.875rem}
+.cert .seal{position:absolute;right:28px;bottom:28px;width:84px;height:84px;border:3px solid var(--amber);border-radius:50%;color:var(--amber);font-family:var(--font-display);display:flex;align-items:center;justify-content:center;font-size:.9375rem;line-height:1.2;transform:rotate(-12deg)}
+.cert-actions{display:flex;gap:10px;justify-content:center;margin-top:18px;flex-wrap:wrap}
+.dl-msg{text-align:center;font-size:.875rem;color:var(--muted);margin:10px 0 0;min-height:1.4em}
+
+/* ---------- 로그인 모달 ---------- */
+.modal{position:fixed;inset:0;background:rgba(40,24,8,.55);display:flex;align-items:center;justify-content:center;padding:20px;z-index:50}
+.modal-box{background:var(--white);border-radius:14px;width:100%;max-width:380px;padding:26px 24px;box-shadow:0 20px 50px rgba(0,0,0,.3)}
+.modal-box h2{font-size:1.25rem;font-weight:900}
+.modal-box .sub{margin:4px 0 18px;font-size:.875rem;color:var(--muted)}
+.field{display:flex;flex-direction:column;gap:4px;margin-bottom:12px}
+.field label{font-size:.8125rem;font-weight:700}
+.field input{font-family:var(--font-body);font-size:1rem;padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--bark)}
+.modal-err{color:var(--error);font-size:.875rem;min-height:1.3em;margin:2px 0 10px}
+.modal-actions{display:flex;gap:8px;justify-content:flex-end}
+
+/* ---------- 푸터 ---------- */
+footer{background:var(--bark);color:var(--cream);font-size:.8125rem;padding:34px 0}
+footer .f-logo{display:block;margin-bottom:12px;background:var(--cream);border-radius:50%;padding:4px}
+footer dl{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;margin:0 0 14px}
+footer dt{font-weight:700;color:#fff}
+footer dd{margin:0}
+footer .copy{opacity:.75;margin:0}
+
+/* ---------- 반응형 ---------- */
+@media (max-width:820px){
+  nav.main .wrap{flex-direction:column;align-items:stretch;gap:8px;padding-top:10px;padding-bottom:0}
+  nav.main ul{overflow-x:auto;gap:18px;padding-bottom:10px;scrollbar-width:none}
+  .hero .wrap,.map-grid,.finish-grid,.product,.caution,.course-meta{grid-template-columns:1fr}
+  .product img{max-height:260px}
+}
+@media (max-width:520px){
+  .util .site{display:none}
+  .notices summary{grid-template-columns:40px 1fr}
+  .notices .d{display:none}
+  .notices .body{padding-left:18px}
+  .spec th{width:100px}
+  .cert{padding:28px 18px}
+  .cert .seal{position:static;margin:16px auto 0;transform:none}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<!-- ===== 상단 유틸: 로그인 상태 ===== -->
+<div class="util"><div class="wrap">
+  <span class="site">런숭 마라톤 조직위원회 공식 접수 사이트</span>
+  <div class="util-r">
+    <span class="who-msg" id="who-msg" role="status"></span>
+    <button type="button" data-action="login" id="login-btn">로그인</button>
+    <button type="button" data-action="logout" id="logout-btn" hidden>로그아웃</button>
+  </div>
+</div></div>
+
+<nav class="main" aria-label="주 메뉴"><div class="wrap">
+  <a class="logo" href="#home" aria-label="런숭 마라톤 홈"><img src="img/logo-small.png" alt="" width="48" height="48"><span class="lt"><small>THE 1ST · 2026</small><span class="lt-name">RUNSOONG MARATHON</span></span></a>
+  <ul>
+    <li data-member hidden><a class="mine" href="#mypage">마이페이지</a></li>
+    <li><a href="#guide">대회요강</a></li>
+    <li><a href="#entry">참가접수</a></li>
+    <li><a href="#course">코스안내</a></li>
+    <li><a href="#notice">공지사항</a></li>
+    <li><a href="#results">기록조회</a></li>
+    <li><a href="#cert">완주증</a></li>
+  </ul>
+</div></nav>
+
+<main>
+
+<!-- ===== 홈 ===== -->
+<div data-view="home">
+<header class="hero home"><div class="wrap">
+  <div class="hero-copy">
+    <div class="eyebrow">THE 1ST RUNSOONG MARATHON</div>
+    <h1>제1회<br>런숭 <em>마라톤</em>대회</h1>
+    <p class="when">2026. 11. 29.(일) 오전 8시 출발</p>
+    <p class="where">삼패야구장 출발 → 한강 강변 → 두물머리 연핫도그 도착</p>
+    <div class="cta" data-guest>
+      <button class="btn amber" type="button" data-action="login">참가자 로그인</button>
+      <a class="btn line" href="#course">코스 보기</a>
+    </div>
+    <div class="cta" data-member hidden>
+      <a class="btn amber" href="#mypage">마이페이지</a>
+      <a class="btn line" href="#cert">완주증</a>
+    </div>
+  </div>
+  <div class="countdown" aria-live="polite">
+    <div class="label">대회 개막까지</div>
+    <div class="dday" id="dday">D-</div>
+    <div class="cd-grid">
+      <div><strong id="cd-d">-</strong><span>일</span></div>
+      <div><strong id="cd-h">-</strong><span>시간</span></div>
+      <div><strong id="cd-m">-</strong><span>분</span></div>
+      <div><strong id="cd-s">-</strong><span>초</span></div>
+    </div>
+    <div class="status" id="race-status">참가 접수 마감 · 대회 준비 중</div>
+  </div>
+</div></header>
+</div>
+
+<!-- ===== 마이페이지 (비로그인 시 안내, 로그인 시 본인 정보) ===== -->
+<div data-view="mypage">
+<div class="view-locked" data-guest><div class="wrap">
+  <div class="locked">
+    <p>마이페이지는 참가자 로그인 후 이용할 수 있습니다.</p>
+    <button class="btn amber" type="button" data-action="login">참가자 로그인</button>
+  </div>
+</div></div>
+<section class="mypage" id="mypage" data-member hidden aria-labelledby="my-title"><div class="wrap my-stack">
+  <div class="my-info">
+    <div class="no">MY PAGE</div>
+    <h2 id="my-title">마이페이지</h2>
+    <p class="greet" id="my-greet"></p>
+    <dl class="kv">
+      <dt>배번</dt><dd id="my-no"></dd>
+      <dt>참가 부문</dt><dd id="my-div"></dd>
+      <dt>출발</dt><dd>2026.11.29.(일) 08:00 · 삼패야구장</dd>
+      <dt>접수 상태</dt><dd><span class="tag">참가 확정</span></dd>
+      <dt>나의 기록</dt><dd id="my-rec"></dd>
+    </dl>
+    <div class="my-tip" id="my-tip"></div>
+    <div class="my-actions">
+      <a class="btn amber sm" href="#cert">완주증 발급 안내</a>
+      <a class="btn plain sm" href="#results">기록조회</a>
+    </div>
+  </div>
+
+  <div class="my-bibbox">
+    <div class="bibbox-head">
+      <div><b>나의 배번</b><span>A4 가로로 인쇄해 옷핀으로 달아 주세요.</span></div>
+      <button class="btn olive sm" type="button" id="bib-toggle" aria-expanded="false" aria-controls="bib-panel">배번 미리보기</button>
+    </div>
+    <div id="bib-panel" hidden>
+      <div id="my-bib"></div>
+      <div class="my-actions center" id="bib-actions" hidden>
+        <button class="btn olive sm" type="button" id="bib-pdf">배번 PDF (인쇄용)</button>
+        <button class="btn plain sm" type="button" id="bib-jpg">배번 JPG</button>
+      </div>
+      <p class="dl-msg" id="bib-msg" role="status">다운로드가 지원되지 않는 화면에서는 배번을 캡처해 인쇄하세요.</p>
+    </div>
+  </div>
+</div></section>
+</div>
+
+<section class="block" id="guide" data-view="guide"><div class="wrap">
+  <div class="sec-head"><div class="no">GUIDE</div><h2>대회요강</h2></div>
+  <div class="notice-box">본 대회는 참가 예정이던 마라톤 대회가 취소됨에 따라, 참가자 2인의 준비 기간이 헛되지 않도록 조직위원회가 긴급 편성한 대체 대회입니다.</div>
+  <div class="table-wrap"><table class="spec">
+    <tr><th>대회명</th><td>제1회 런숭 마라톤대회</td></tr>
+    <tr><th>일시</th><td>2026년 11월 29일(일) 08:00 출발</td></tr>
+    <tr><th>출발</th><td>삼패야구장 (경기도 남양주시)</td></tr>
+    <tr><th>도착</th><td>두물머리 연핫도그 (경기도 양평군 양서면)</td></tr>
+    <tr><th>종목</th><td>핫도그 하프 코스 <span class="tag amber">단일 종목</span><br><small>거리 약 20km 안팎 추정, 대회 전 실측 후 확정</small></td></tr>
+    <tr><th>참가비</th><td>0원 <small>(무료)</small></td></tr>
+    <tr><th>정원</th><td>2명 <small>(대회장 1명 + 엘리트 선수 1명)</small><span class="tag">접수 마감</span></td></tr>
+    <tr><th>제한시간</th><td>3시간 <small>(11:00 커트오프 · 연핫도그 주말 영업 개시 09:00)</small></td></tr>
+    <tr><th>기록 계측</th><td>GPS 계측 (Garmin) · 계측요원 병주(竝走) 방식</td></tr>
+    <tr><th>기념품</th><td>완주 시 연핫도그 1개 <small>(순한맛·매운맛 중 택1, 현장 지급)</small></td></tr>
+    <tr><th>주최·주관</th><td>런숭 마라톤 조직위원회</td></tr>
+  </table></div>
+</div></section>
+
+<section class="block" id="entry" data-view="entry"><div class="wrap">
+  <div class="sec-head"><div class="no">ENTRY</div><h2>참가접수</h2><p>총 1개의 접수 상품이 있습니다.</p></div>
+  <article class="product">
+    <img src="img/hero.jpg" alt="두물머리 강변 풍경" width="1325" height="691">
+    <div class="info">
+      <span class="kind">엘리트 선수 접수</span>
+      <h3>핫도그 하프 코스</h3>
+      <dl class="kv">
+        <dt>접수기간</dt><dd>접수 개시 직후 조기 마감</dd>
+        <dt>접수대상</dt><dd>엘리트 선수 (단 1명)</dd>
+        <dt>접수현황</dt><dd><b>1 / 1명</b> · 엘리트 부문 정원 마감</dd>
+      </dl>
+      <div class="meter" aria-hidden="true"><span></span></div>
+      <div class="my-entry" id="my-entry" data-member hidden></div>
+      <div data-guest><button class="btn" type="button" disabled>접수마감</button></div>
+    </div>
+  </article>
+
+  <h3 class="sub-h">유의사항</h3>
+  <div class="caution">
+    <article><h4>본인 건강 상태에 따른 참가</h4><p>대회 전날 과음, 수면 부족, 몸살 기운이 있으면 대회장에게 즉시 알려 주십시오. 무리한 완주보다 안전한 기권을 존중합니다.</p></article>
+    <article><h4>기념품 수령</h4><p>기념품은 별도 발송하지 않으며 결승 지점에서 현장 지급합니다. 매장 대기 줄이 있을 경우 선수도 줄을 서야 합니다.</p></article>
+    <article><h4>참가비 환불</h4><p>참가비가 0원이므로 환불 대상이 없습니다. 이미 지불한 노력과 시간은 환불되지 않습니다.</p></article>
+  </div>
+
+  <h3 class="sub-h">보험 범위</h3>
+  <ul class="insure">
+    <li>본 대회는 별도 상해보험에 가입하지 않은 친선 대회이며, 각 선수는 스스로 안전에 유의합니다.</li>
+    <li>대회 기간은 출발 신호(08:00)부터 결승 지점 기념품 수령 시까지로 합니다.</li>
+    <li>결승 후 핫도그 과식으로 인한 불편은 대회 범위에 포함되지 않습니다.</li>
+  </ul>
+</div></section>
+
+<section class="block" id="course" data-view="course"><div class="wrap">
+  <div class="sec-head"><div class="no">COURSE</div><h2>코스안내</h2><p>한강 강변을 따라 북한강과 남한강이 만나는 두물머리까지 달리는 편도 코스입니다.</p></div>
+  <div class="map-grid">
+    <figure class="photo"><img src="img/course.jpg" alt="공식 코스 지도: 삼패 출발, 한강 북안을 따라 팔당대교, 능내를 지나 운길산역, 북한강철교를 건너 두물머리 연핫도그 도착" width="1089" height="825"><figcaption>공식 코스도</figcaption></figure>
+    <ol class="legs">
+      <li class="end"><span class="dot">S</span><span><b>삼패야구장</b><small>출발 08:00</small></span></li>
+      <li><span class="dot">1</span><span>덕소 · 도심역<small>한강 북안 강변길</small></span></li>
+      <li><span class="dot">2</span><span>도곡 · 팔당대교<small>팔당 진입</small></span></li>
+      <li><span class="dot">3</span><span>팔당 · 능내<small>다산유적지 일대 순환</small></span></li>
+      <li><span class="dot">4</span><span>조안 · 운길산역<small>북한강 따라 북상</small></span></li>
+      <li><span class="dot">5</span><span>북한강철교 · 양수리<small>강 건너 두물머리 진입</small></span></li>
+      <li class="end"><span class="dot">F</span><span><b>두물머리 연핫도그</b><small>결승 · 기념품 지급</small></span></li>
+    </ol>
+  </div>
+  <div class="course-meta">
+    <div><b>코스 형태</b>편도 · 강변 보행로</div>
+    <div><b>급수</b>코스 내 편의점 자율 급수</div>
+    <div><b>귀가</b>경의중앙선 운길산역 또는 양수역</div>
+  </div>
+
+  <h3 class="sub-h">결승 지점 및 기념품</h3>
+  <div class="finish-grid">
+    <figure class="photo"><img src="img/shop.jpg" alt="결승 지점인 두물머리 연핫도그 매장 외관" width="638" height="582" loading="lazy"><figcaption>결승 지점: 두물머리 연핫도그 (주말 09:00 영업 개시)</figcaption></figure>
+    <figure class="photo"><img src="img/hotdog.jpg" alt="완주 기념품 연핫도그 두 개" width="417" height="380" loading="lazy"><figcaption>완주 기념품: 연핫도그 1인 1개 (순한맛·매운맛 택1)</figcaption></figure>
+  </div>
+
+  <h3 class="sub-h">출발지 오시는 길</h3>
+  <figure class="photo"><img src="img/transit.jpg" alt="삼패야구장까지 대중교통 경로 지도: 1700번 직행버스 이용" width="1600" height="781" loading="lazy"><figcaption>대중교통: 1700번 직행버스 이용, 삼패사거리·평구마을 정류장 하차 후 도보 이동</figcaption></figure>
+</div></section>
+
+
+<section class="block" id="notice" data-view="notice"><div class="wrap">
+  <div class="sec-head"><div class="no">NOTICE</div><h2>공지사항</h2></div>
+  <ul class="notices">
+    <li><details open><summary><span class="n">6</span><span class="t">[결과] 엘리트 부문 접수 결과 안내</span><span class="d">2026.11.19</span></summary>
+      <div class="body"><p>제1회 런숭 마라톤대회 엘리트 부문 접수가 개시 직후 조기 마감되었습니다.</p><p>치열한 접수 경쟁 끝에 <b>배번 0002 이예림</b> 선수가 단 1명의 엘리트 선수로 최종 선발되었습니다. 아쉽게 선발되지 못한 분들께 깊은 양해를 구합니다.</p></div></details></li>
+    <li><details><summary><span class="n">5</span><span class="t">[필독] 안전 수칙 안내</span><span class="d">2026.11.19</span></summary>
+      <div class="body"><p>코스 대부분이 자전거도로와 인접해 있습니다. 주말 오전에는 자전거 통행이 많으므로 반드시 보행로로 주행해 주시기 바랍니다.</p><p>이어폰 착용 시 한쪽은 빼 주십시오.</p></div></details></li>
+    <li><details><summary><span class="n">4</span><span class="t">동절기 복장 안내</span><span class="d">2026.11.19</span></summary>
+      <div class="body"><p>11월 말 강변 아침 기온은 영하로 떨어질 수 있습니다. 장갑, 귀마개, 바람막이를 준비해 주십시오. 결승 후 체온 유지용 여벌 상의를 권장합니다.</p></div></details></li>
+    <li><details><summary><span class="n">3</span><span class="t">기념품(연핫도그) 지급 안내</span><span class="d">2026.11.19</span></summary>
+      <div class="body"><p>기념품은 결승 지점 현장에서 지급하며, 순한맛·매운맛 중 선택할 수 있습니다.</p></div></details></li>
+    <li><details><summary><span class="n">2</span><span class="t">기상 악화 시 대회 운영 방침</span><span class="d">2026.11.19</span></summary>
+      <div class="body"><p>강우·강설로 주행이 위험하다고 판단되면 대회장 재량으로 코스를 단축하거나 순연합니다. 이 경우에도 기념품은 지급합니다.</p></div></details></li>
+    <li><details><summary><span class="n">1</span><span class="t">제1회 런숭 마라톤대회 개최 공고</span><span class="d">2026.11.19</span></summary>
+      <div class="body"><p>런숭 마라톤 조직위원회는 2026년 11월 29일 제1회 런숭 마라톤대회를 개최합니다. 선수 여러분의 많은 성원 바랍니다.</p></div></details></li>
+  </ul>
+</div></section>
+
+<section class="block" id="results" data-view="results"><div class="wrap">
+  <div class="sec-head"><div class="no">RECORD</div><h2>기록조회</h2><p id="results-sub">대회 종료 후 공식 기록이 게시됩니다.</p></div>
+  <div class="table-wrap"><table class="results">
+    <thead><tr><th>순위</th><th>배번</th><th>성명</th><th>부문</th><th>공식 기록</th><th>평균 페이스</th><th>거리</th></tr></thead>
+    <tbody id="results-body"></tbody>
+  </table></div>
+  <p class="note">기록은 Garmin GPS 측정값 기준이며, 계측요원(배번 0001)이 직접 집계합니다.</p>
+</div></section>
+
+<section class="block" id="cert" data-view="cert"><div class="wrap">
+  <div class="sec-head"><div class="no">FINISH</div><h2>완주증</h2><p>완주증은 기록 계측이 끝난 뒤 로그인한 선수 본인에게 발급되며, JPG 또는 PDF로 내려받을 수 있습니다.</p></div>
+
+  <div class="locked" data-guest>
+    <p>본인 완주증은 참가자 로그인 후 확인할 수 있습니다.</p>
+    <button class="btn amber" type="button" data-action="login">참가자 로그인</button>
+  </div>
+
+  <div class="locked" id="cert-pending" data-member hidden>
+    <p><b id="cert-pending-name"></b> 선수님의 완주증은 <b>기록 계측이 끝난 뒤</b> 발급됩니다.<br>대회 당일(11월 29일) 결승 후 계측요원이 기록을 게시하면 이곳에서 JPG·PDF로 내려받을 수 있습니다.</p>
+    <a class="btn plain" href="#results">기록조회로 이동</a>
+  </div>
+
+  <div id="cert-ready" hidden>
+    <div class="cert" id="cert-card">
+      <img class="cert-logo" src="img/logo.png" alt="런숭 마라톤 로고" width="96" height="96">
+      <div class="kicker">CERTIFICATE OF FINISH</div>
+      <h3>완 주 증</h3>
+      <div class="who" id="cert-name"></div>
+      <div class="bibno" id="cert-bib"></div>
+      <p class="text">위 선수는 2026년 11월 29일 개최된 제1회 런숭 마라톤대회 핫도그 하프 코스를 아래 기록으로 완주하였기에 이 증서를 수여합니다.</p>
+      <div class="rec" id="cert-time">--:--:--</div>
+      <div class="foot">2026. 11. 29.<br><b>런숭 마라톤 조직위원회 대회장</b></div>
+      <div class="seal">런숭<br>조직위</div>
+    </div>
+    <div class="cert-actions" id="cert-actions" hidden>
+      <button class="btn amber" type="button" id="dl-jpg">JPG 다운로드</button>
+      <button class="btn olive" type="button" id="dl-pdf">PDF 다운로드</button>
+    </div>
+    <p class="dl-msg" id="dl-msg" role="status">다운로드가 지원되지 않는 화면에서는 캡처해서 보관하세요.</p>
+  </div>
+</div></section>
+
+</main>
+
+<!-- 인쇄용 배번 렌더링 영역 (화면 밖) -->
+<div id="print-bib" aria-hidden="true"></div>
+
+<!-- ===== 로그인 모달 ===== -->
+<div class="modal" id="login-modal" hidden role="dialog" aria-modal="true" aria-labelledby="login-title">
+  <form class="modal-box" id="login-form" novalidate>
+    <h2 id="login-title">참가자 로그인</h2>
+    <p class="sub">이름과 참가자 비밀번호(숫자 4자리)를 입력하세요.</p>
+    <div class="field"><label for="login-name">이름</label><input id="login-name" type="text" autocomplete="name" placeholder="홍길동"></div>
+    <div class="field"><label for="login-pw">비밀번호</label><input id="login-pw" type="password" inputmode="numeric" maxlength="4" autocomplete="current-password" placeholder="숫자 4자리"></div>
+    <p class="modal-err" id="login-err" role="alert"></p>
+    <div class="modal-actions">
+      <button type="button" class="btn plain sm" data-action="close-login">취소</button>
+      <button type="submit" class="btn amber sm">로그인</button>
+    </div>
+  </form>
+</div>
+
+<footer><div class="wrap">
+  <img class="f-logo" src="img/logo-small.png" alt="" width="40" height="40">
+  <dl>
+    <dt>주최</dt><dd>런숭 마라톤 조직위원회</dd>
+    <dt>주관</dt><dd>대회장 고하원</dd>
+    <dt>협력</dt><dd>대회장 손목의 GPS 시계</dd>
+  </dl>
+  <p class="copy">본 대회는 참가자 2인을 위한 비공식 친선 대회입니다. © 2026 RUNSOONG MARATHON</p>
+</div></footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script>
+/* =========================================================
+   데이터 (선수 정보는 여기 한 곳에서만 관리)
+   - 대회 후 time("H:MM:SS")과 km(숫자)만 채우면 기록표·마이페이지·완주증이 함께 갱신됩니다.
+   - key: SHA-256("이름:비밀번호"). 비밀번호 원문은 페이지에 두지 않습니다.
+   ========================================================= */
+var RACE_START = new Date("2026-11-29T08:00:00+09:00").getTime();
+var RUNNERS = [
+  { bib:"0001", name:"고하원", division:"대회장", cls:"HALF", elite:false, color:"amber",
+    role:"대회장 · 페이스메이커 · 계측요원",
+    tip:"대회장님, 대회 전날 가민 시계 충전과 GPS 수신 상태를 꼭 확인해 주세요.",
+    key:"bbcfaf281c7cf6b692f67a93e1c1b217ba2028a9ed20bb02a19b469b98fa4649",
+    time:null, km:null },
+  { bib:"0002", name:"이예림", division:"엘리트부", cls:"ELITE · HALF", elite:true, color:"olive",
+    role:"엘리트부 · 치열한 접수 경쟁 끝에 최종 선발",
+    tip:"엘리트 선수님, 결승 기념품 연핫도그의 맛(순한맛·매운맛)을 미리 정해 두세요.",
+    key:"3164827a41516c3883836d70cf67f882bcdf5c576248cdd6ef3447b76095b0bd",
+    time:null, km:null }
+];
+
+/* ---------- 상태 ---------- */
+var state = { me:null, downloads:null };
+var SESSION_KEY = "rs_login";
+
+/* ---------- 유틸 ---------- */
+function $(id){ return document.getElementById(id); }
+function pad(n){ return String(n).padStart(2,"0"); }
+function toSec(t){ var p=t.split(":").map(Number); return p[0]*3600+p[1]*60+p[2]; }
+function pace(r){ if(!r.time||!r.km) return null; var s=toSec(r.time)/r.km; return Math.floor(s/60)+"'"+pad(Math.round(s%60))+"\"/km"; }
+function esc(t){ return String(t).replace(/[&<>"]/g,function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[c]; }); }
+function raceStarted(){ return Date.now()>=RACE_START; }
+function finishers(){ return RUNNERS.filter(function(r){ return r.time; }).sort(function(a,b){ return toSec(a.time)-toSec(b.time); }); }
+function rankOf(r){ var i=finishers().indexOf(r); return i<0?null:i+1; }
+function sessionGet(){ try{ return sessionStorage.getItem(SESSION_KEY); }catch(e){ return null; } }
+function sessionSet(v){ try{ v?sessionStorage.setItem(SESSION_KEY,v):sessionStorage.removeItem(SESSION_KEY); }catch(e){} }
+
+/* ---------- 렌더: 배번 카드 ---------- */
+function bibCardHTML(r,opt){
+  var print = opt&&opt.print;
+  return '<article class="bibcard '+r.color+(print?' print':'')+'">'+
+    (print?'<img class="bib-logo" src="img/logo.png" alt="" width="90" height="90">':'')+
+    '<div class="pins"><i></i><i></i></div>'+
+    '<div class="top"><span>RUNSOONG MARATHON</span><span class="cls'+(r.elite?' elite':'')+'">'+esc(r.cls)+'</span></div>'+
+    '<div class="num">'+r.bib+'</div>'+
+    '<div class="name">'+esc(r.name)+'</div>'+
+    '<div class="role">'+esc(r.role)+'</div>'+
+    (print?'<div class="pins"><i></i><i></i></div>':'')+
+    '<div class="strip"><span>2026.11.29</span><span>삼패 → 두물머리</span></div>'+
+  '</article>';
+}
+
+/* ---------- 렌더: 기록표 ---------- */
+function renderResults(){
+  var done = finishers();
+  var rows = done.concat(RUNNERS.filter(function(r){ return !r.time; }));
+  $("results-body").innerHTML = rows.map(function(r){
+    var cells = r.time
+      ? '<td class="time">'+r.time+'</td><td>'+(pace(r)||"-")+'</td><td>'+(r.km?r.km+"km":"-")+'</td>'
+      : '<td class="pending" colspan="3">'+(raceStarted()?"기록 집계 중":"기록 미등록 (대회 전)")+'</td>';
+    return '<tr'+(state.me===r?' class="is-me"':'')+'><td>'+(rankOf(r)||"-")+'</td><td>'+r.bib+'</td><td>'+esc(r.name)+'</td><td>'+esc(r.division)+'</td>'+cells+'</tr>';
+  }).join("");
+  $("results-sub").textContent = done.length ? "공식 기록이 게시되었습니다." : "대회 종료 후 공식 기록이 게시됩니다.";
+}
+
+/* ---------- 렌더: 회원 영역 (마이페이지 · 접수확인 · 완주증) ---------- */
+function renderMember(){
+  var me = state.me, logged = !!me;
+  document.querySelectorAll("[data-member]").forEach(function(el){ el.hidden=!logged; });
+  document.querySelectorAll("[data-guest]").forEach(function(el){ el.hidden=logged; });
+  $("login-btn").hidden = logged;
+  $("logout-btn").hidden = !logged;
+  $("who-msg").innerHTML = logged ? "<b>"+esc(me.name)+"</b> 선수님" : "";
+  if(!logged){ $("cert-ready").hidden=true; return; }
+
+  var rec = me.time ? me.time+(pace(me)?" · "+pace(me):"")+(rankOf(me)?" · "+rankOf(me)+"위":"") : (raceStarted()?"기록 집계 중":"대회 후 게시 예정");
+  $("my-bib").innerHTML = bibCardHTML(me);
+  $("my-greet").textContent = me.name+" 선수님, 제1회 런숭 마라톤대회 참가를 환영합니다.";
+  $("my-no").textContent = me.bib;
+  $("my-div").textContent = me.role;
+  $("my-rec").textContent = rec;
+  $("my-tip").textContent = me.tip;
+  $("my-entry").textContent = "나의 접수: 참가 확정 · 배번 "+me.bib+" · "+me.division;
+
+  var certReady = !!me.time;
+  $("cert-pending").hidden = certReady;
+  $("cert-ready").hidden = !certReady;
+  $("cert-pending-name").textContent = me.name;
+  $("cert-name").textContent = me.name;
+  $("cert-bib").textContent = "No. "+me.bib;
+  $("cert-time").textContent = me.time || "";
+  $("cert-actions").hidden = !state.downloads;
+  $("bib-actions").hidden = !state.downloads;
+  if(state.downloads) $("bib-msg").textContent = "";
+  if(state.downloads) $("dl-msg").textContent = "";
+}
+
+function renderAll(){ renderResults(); renderMember(); }
+
+/* ---------- 카운트다운 ---------- */
+function tick(){
+  var diff = RACE_START-Date.now();
+  if(diff>0){
+    var d=Math.floor(diff/86400000), h=Math.floor(diff%86400000/3600000), m=Math.floor(diff%3600000/60000), s=Math.floor(diff%60000/1000);
+    $("dday").textContent = d===0?"D-DAY":"D-"+d;
+    $("cd-d").textContent=d; $("cd-h").textContent=pad(h); $("cd-m").textContent=pad(m); $("cd-s").textContent=pad(s);
+  } else {
+    ["cd-d","cd-h","cd-m","cd-s"].forEach(function(id){ $(id).textContent="0"; });
+    var allDone = RUNNERS.every(function(r){ return r.time; });
+    $("dday").textContent = allDone?"FINISH":"RACE ON";
+    $("race-status").textContent = allDone?"대회 종료 · 공식 기록 게시 완료":"대회 진행 중 · 기록 집계 중";
+  }
+}
+
+/* ---------- 로그인 ---------- */
+function sha256hex(t){
+  return crypto.subtle.digest("SHA-256",new TextEncoder().encode(t)).then(function(b){
+    return Array.from(new Uint8Array(b)).map(function(x){ return x.toString(16).padStart(2,"0"); }).join("");
+  });
+}
+function findByKey(k){ return RUNNERS.filter(function(r){ return r.key===k; })[0]||null; }
+function openLogin(){ $("login-modal").hidden=false; $("login-err").textContent=""; $("login-name").focus(); }
+function closeLogin(){ $("login-modal").hidden=true; }
+function login(runner){
+  state.me = runner; sessionSet(runner.key); renderAll(); go("mypage");
+}
+function logout(){ state.me=null; sessionSet(null); resetBibPreview(); renderAll(); go("home"); }
+
+$("login-form").addEventListener("submit",function(e){
+  e.preventDefault();
+  var name=$("login-name").value.replace(/\s+/g,""), pw=$("login-pw").value.trim(), err=$("login-err");
+  if(!name||!pw){ err.textContent="이름과 비밀번호를 모두 입력해 주세요."; return; }
+  if(!(window.crypto&&crypto.subtle)){ err.textContent="이 브라우저에서는 로그인을 지원하지 않습니다."; return; }
+  sha256hex(name+":"+pw).then(function(k){
+    var r=findByKey(k);
+    if(!r){ err.textContent="이름 또는 비밀번호가 일치하지 않습니다."; return; }
+    $("login-form").reset(); closeLogin(); login(r);
+  });
+});
+
+/* 버튼 동작은 data-action 하나로 위임 */
+document.addEventListener("click",function(e){
+  var t=e.target.closest("[data-action]");
+  if(t){
+    var a=t.dataset.action;
+    if(a==="login") openLogin();
+    else if(a==="logout") logout();
+    else if(a==="close-login") closeLogin();
+    return;
+  }
+  if(e.target.id==="login-modal") closeLogin();
+});
+document.addEventListener("keydown",function(e){ if(e.key==="Escape"&&!$("login-modal").hidden) closeLogin(); });
+
+/* ---------- 파일 내보내기 (완주증 · 배번 공용) ---------- */
+var EXPORTS = {
+  cert: { el:function(){ return $("cert-card"); }, label:"완주증", file:"완주증", msg:"dl-msg", btns:["dl-jpg","dl-pdf"],
+          ready:function(){ return state.me&&state.me.time; },
+          pdf:{ orientation:"portrait", maxW:180, maxH:267 } },
+  bib:  { el:function(){ return $("print-bib").firstElementChild; }, label:"배번", file:"배번", msg:"bib-msg", btns:["bib-pdf","bib-jpg"],
+          ready:function(){ return !!state.me; },
+          prepare:function(){ $("print-bib").innerHTML = bibCardHTML(state.me,{print:true}); },
+          pdf:{ orientation:"landscape", maxW:240, maxH:190 } }
+};
+function setMsg(job,t){ $(job.msg).textContent=t; }
+function setBusy(job,on){ job.btns.forEach(function(id){ $(id).disabled=on; }); }
+function capture(el){
+  if(!window.html2canvas) return Promise.reject(new Error("lib"));
+  return (document.fonts?document.fonts.ready:Promise.resolve()).then(function(){
+    return html2canvas(el,{scale:2,backgroundColor:"#fffdf8",useCORS:true});
+  });
+}
+function saveFile(job,filename,data){
+  if(!state.downloads){ setMsg(job,"이 화면에서는 다운로드할 수 없습니다. 캡처해서 보관하세요."); return Promise.resolve(); }
+  return state.downloads.save({filename:filename,data:data}).then(function(){ setMsg(job,"저장했습니다: "+filename); },function(e){
+    var c=e&&e.code;
+    if(c==="declined") setMsg(job,"다운로드를 취소했습니다.");
+    else if(c==="rate_limited") setMsg(job,"이미 저장 창이 열려 있습니다. 잠시 후 다시 눌러 주세요.");
+    else setMsg(job,"이 화면에서는 다운로드할 수 없습니다. 캡처해서 보관하세요.");
+  });
+}
+function runExport(name,kind){
+  var job=EXPORTS[name]; if(!job.ready()) return;
+  var base="런숭마라톤_"+job.file+"_"+state.me.bib+"_"+state.me.name;
+  if(job.prepare) job.prepare();
+  setBusy(job,true); setMsg(job,job.label+" "+(kind==="pdf"?"PDF":"이미지")+"를 만드는 중입니다…");
+  capture(job.el()).then(function(c){
+    if(kind==="jpg") return new Promise(function(res){ c.toBlob(res,"image/jpeg",0.92); }).then(function(b){ return saveFile(job,base+".jpg",b); });
+    var J=window.jspdf&&window.jspdf.jsPDF; if(!J) throw new Error("lib");
+    var o=job.pdf, pdf=new J({orientation:o.orientation,unit:"mm",format:"a4"});
+    var pw=pdf.internal.pageSize.getWidth(), ph=pdf.internal.pageSize.getHeight();
+    var w=o.maxW, h=w*c.height/c.width;
+    if(h>o.maxH){ h=o.maxH; w=h*c.width/c.height; }
+    pdf.addImage(c.toDataURL("image/jpeg",0.92),"JPEG",(pw-w)/2,(ph-h)/2,w,h);
+    return saveFile(job,base+".pdf",pdf.output("blob"));
+  }).catch(function(){ setMsg(job,"파일을 만들지 못했습니다. 새로고침 후 다시 시도해 주세요."); })
+    .then(function(){ setBusy(job,false); if(job.prepare) $("print-bib").innerHTML=""; });
+}
+$("dl-jpg").addEventListener("click",function(){ runExport("cert","jpg"); });
+$("dl-pdf").addEventListener("click",function(){ runExport("cert","pdf"); });
+$("bib-pdf").addEventListener("click",function(){ runExport("bib","pdf"); });
+$("bib-jpg").addEventListener("click",function(){ runExport("bib","jpg"); });
+
+/* ---------- 배번 미리보기 토글 ---------- */
+$("bib-toggle").addEventListener("click",function(){
+  var open=$("bib-panel").hidden;
+  $("bib-panel").hidden=!open;
+  this.setAttribute("aria-expanded",String(open));
+  this.textContent=open?"미리보기 닫기":"배번 미리보기";
+});
+function resetBibPreview(){ $("bib-panel").hidden=true; $("bib-toggle").setAttribute("aria-expanded","false"); $("bib-toggle").textContent="배번 미리보기"; }
+
+/* ---------- 페이지 전환 (헤더 메뉴 → 각 페이지) ---------- */
+var VIEWS = ["home","mypage","guide","entry","course","notice","results","cert"];
+var TITLES = {home:"",mypage:"마이페이지",guide:"대회요강",entry:"참가접수",course:"코스안내",notice:"공지사항",results:"기록조회",cert:"완주증"};
+function currentView(){ var v=location.hash.slice(1); return VIEWS.indexOf(v)<0?"home":v; }
+function route(){
+  var v=currentView();
+  document.querySelectorAll("[data-view]").forEach(function(el){ el.hidden = el.dataset.view!==v; });
+  document.querySelectorAll("nav.main ul a").forEach(function(a){
+    if(a.getAttribute("href")==="#"+v) a.setAttribute("aria-current","page"); else a.removeAttribute("aria-current");
+  });
+  document.title = (TITLES[v]?TITLES[v]+" | ":"")+"제1회 런숭 마라톤대회";
+  window.scrollTo(0,0);
+}
+function go(v){ if(currentView()===v && location.hash) route(); else location.hash=v; }
+window.addEventListener("hashchange",route);
+
+
+/* ---------- 시작 ---------- */
+state.me = findByKey(sessionGet());
+renderAll(); route(); tick(); setInterval(tick,1000);
+/* Claude 안에서는 downloads 기능을, 일반 브라우저(GitHub Pages 등)에서는 직접 다운로드를 사용 */
+var nativeDownloads = { save:function(req){
+  var blob = req.data instanceof Blob ? req.data : new Blob([req.data]);
+  var url = URL.createObjectURL(blob), a = document.createElement("a");
+  a.href = url; a.download = req.filename; document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(function(){ URL.revokeObjectURL(url); }, 4000);
+  return Promise.resolve({status:"saved"});
+}};
+if(window.claude&&window.claude.use){
+  window.claude.use("downloads").then(function(d){ state.downloads=d; renderMember(); },function(){});
+} else {
+  state.downloads = nativeDownloads; renderMember();
+}
+</script>
+</body>
+</html>
